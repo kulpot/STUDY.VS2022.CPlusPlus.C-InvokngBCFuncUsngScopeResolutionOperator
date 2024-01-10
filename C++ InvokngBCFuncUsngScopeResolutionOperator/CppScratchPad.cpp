@@ -9,19 +9,43 @@ using namespace std;
 // -------------------------- C++ Invoking Base Class Functions Using the Scope Resolution Operator -------------------------------
 //ref link:https://www.youtube.com/watch?v=s7PgiZIMosg&list=PLRwVmtr-pp05LyV3bYHwrFacNSNjbUqS6&index=24
 
+// :: Scope Resolution Operator - ex. Base::foo();
+
 struct Base
 {
-	virtual void foo() { cout << "Base::foo()" << endl; }
+	virtual void foo() { cout << "Base::foo()" << endl; }	// output: Derived::foo() 
+	//void foo() { cout << "Base::foo()" << endl; }	// output: Base::foo() 
 };
 
 struct Derived : public Base
 {
-	void foo() { cout << "Derived::foo()" << endl; }
+	//void foo() { cout << "Derived::foo()" << endl; }
+	
+	//void foo() 
+	//{ 
+	//	Base::foo();	// Base Classes C++ Explicit Implementation ----- //output: Base::foo() Derived::foo()
+	//	cout << "Derived::foo()" << endl; 
+	//	Base::foo();	// can be use as you wish
+	//	Base::foo();	// can be use as you wish
+	//	Base::foo();	// can be use as you wish
+	//	
+	//}
+	void ifnotOverwrite()
+	{
+		foo();
+		//Base::foo();		// Scope Resolution Operator
+		cout << "Derived::foo() ifnotOverwrite()" << endl;
+	}
 };
 
 int main()
 {
+	//Base* base = new Derived;
+	//base->foo();  // execution line	
+	//delete base;		//  ---- Required: delete base to the heap -----
 
+	Derived d;
+	d.ifnotOverwrite();
 }
 
 
